@@ -1,2 +1,5 @@
-# servoTesterCAS
-ATTINY85 based simple servo tester with up to 12V servos
+# Simple Servo Tester
+
+## Schematic
+
+<img src="./img/schematic.png" alt="schematic.png">
