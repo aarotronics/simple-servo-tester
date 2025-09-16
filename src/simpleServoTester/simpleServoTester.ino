@@ -5,15 +5,15 @@
    Basic servo tester based on ATTiny85 uC up to 12V input voltage. Three function
    modes:
 
-      1 --> MANUAL (Default when power up): change signal from 'MIN_PULSE' to 
+      1 --> MANUAL (Default when power up): change signal from 'MIN_PULSE' to
             'MAX_PULSE' with potentiometer position
-            
-      2 --> AUTO (One button clic from MANUAL): signal automatically changes from 
-            'MIN_PULSE' to 'MAX_PULSE' and back. Potentiometer changes the speed of 
+
+      2 --> AUTO (One button clic from MANUAL): signal automatically changes from
+            'MIN_PULSE' to 'MAX_PULSE' and back. Potentiometer changes the speed of
             increase and decrease in signal change
-            
-      3 --> NEUTRAL (Another button clic from AUTO): output signal will be 
-            'PWM_NEUTRAL' constantly. Another button clic in this mode will 
+
+      3 --> NEUTRAL (Another button clic from AUTO): output signal will be
+            'PWM_NEUTRAL' constantly. Another button clic in this mode will
             loop-return to the MANUAL Default state
 
 
@@ -118,12 +118,18 @@ void loop() {
 #else
       digitalWrite(OUTPUT_PIN, LOW);
 #endif
-      if (positiveSteps) pulseDuration = pulseDuration + swingSteps;
-      else pulseDuration = pulseDuration - swingSteps;
+      if (positiveSteps) {
+        pulseDuration = pulseDuration + swingSteps;
+      } else {
+        pulseDuration = pulseDuration - swingSteps;
+      }
     }
 
-    if (pulseDuration >= MAX_PULSE) positiveSteps = false;
-    else if (pulseDuration <= MIN_PULSE) positiveSteps = true;
+    if (pulseDuration >= MAX_PULSE) {
+      positiveSteps = false;
+    } else if (pulseDuration <= MIN_PULSE) {
+      positiveSteps = true;
+    }
   }
 
   //NEUTRAL MODE
@@ -146,7 +152,7 @@ void loop() {
 
   //READ BUTTON
   if (!digitalRead(BUTTON_PIN)) {
-    delay(15);
+    delay(20); // Debounce switch
     while (!digitalRead(BUTTON_PIN));
     if (manualMode) {
       digitalWrite(LED_MANUAL, LOW);
@@ -167,6 +173,6 @@ void loop() {
       autoMode = false;
       neutralMode = false;
     }
-    delay(15);
+    delay(20);
   }
 }
